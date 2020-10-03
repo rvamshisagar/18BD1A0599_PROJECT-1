@@ -10,7 +10,7 @@ class HandlerGenerator {
     let password = req.body.password;
     // For the given username fetch user from DB
     let mockedUsername = 'admin';
-    let mockedPassword = 'password';
+    let mockedPassword = 'rvs+2001';
     if (username && password) {
       if (username === mockedUsername && password === mockedPassword) {
         let token = jwt.sign({username: username},
