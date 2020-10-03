@@ -23,7 +23,7 @@ MongoClient.connect(url, (err,client)=>{
 //hospital details
 app.get('/hospitaldetails',middleware.checkToken,function(req,res){
     console.log("Displaying Details from Hospital Collection")
-    var data=db.collection('ventilator').find().toArray().then((doc)=>{res.json(doc)});
+    var data=db.collection('hospital').find().toArray().then((doc)=>{res.json(doc)});
 });
 
 //ventilator details
