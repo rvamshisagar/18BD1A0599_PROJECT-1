@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const MongoClient=require('mongodb').MongoClient;
 const url='mongodb://127.0.0.1:27017';
 const dbName='hospitalManagement';
-MongoClient.connect(url, (err,client)=>{
+MongoClient.connect(url,{useUnifiedTopology:true},(err,client)=>{
            if(err) return console.log(err);
         db=client.db(dbName);
         app.get("/",(req,res)=>{
@@ -20,26 +20,26 @@ MongoClient.connect(url, (err,client)=>{
     });
 });
 
-//hospital details
+//Displaying hospital details
 app.get('/hospitaldetails',middleware.checkToken,function(req,res){
     console.log("Displaying Details from Hospital Collection")
     var data=db.collection('hospital').find().toArray().then((doc)=>{res.json(doc)});
 });
 
-//ventilator details
+//Displaying ventilator details
 app.get('/ventilatordetails',middleware.checkToken,function(req,res){
         console.log("Displaying Details from ventilator Collection")
         var data=db.collection('ventilator').find().toArray().then((doc)=>{res.json(doc)});
 });
 
-//seraching vent by status
+//seraching ventilator by status
 app.post('/searchventbystatus',middleware.checkToken,(req,res)=>{
         var status =req.body.status;
         console.log(status);
         var ventilatordetails=db.collection('ventilator').find({"status":status}).toArray().then(doc=>res.json(doc));
 });
 
-//seraching vent by Hospital name
+//seraching ventilator by Hospital name
 app.post('/searchventbyhname',middleware.checkToken,(req,res)=>{
     var name=req.body.name;
     console.log(name);
